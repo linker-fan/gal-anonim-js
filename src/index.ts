@@ -3,7 +3,7 @@ import axios, { AxiosInstance } from 'axios';
 /**
  * The main wrapper class.
  */
-class GalAnonim {
+export class GalAnonim {
   private api: AxiosInstance;
 
   /**
@@ -40,5 +40,3 @@ class GalAnonim {
     return status;
   }
 }
-
-export default GalAnonim;

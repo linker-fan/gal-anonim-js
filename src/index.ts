@@ -13,11 +13,6 @@ export class GalAnonim {
   constructor(url: string) {
     let baseURL = url;
 
-    // remove the trailing slash
-    if (baseURL.endsWith('/')) {
-      baseURL = baseURL.slice(0, baseURL.length);
-    }
-
     this.api = axios.create({
       baseURL,
       validateStatus: () => true // requests will never throw an error
@@ -30,7 +25,7 @@ export class GalAnonim {
    * @param password
    * @returns Status code - 201 if successfully created, 4xx/5xx if something failed
    */
-  public async register(username: string, password: string) {
+  public async register(username: string, password: string): Promise<number> {
     const { status } = await this.api.post('/users/register', {
       username,
       password1: password,

@@ -1,6 +1,6 @@
 {
   "name": "gal-anonim",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "repository": "https://github.com/linker-fan/gal-anonim-js.git",
   "author": "Bartosz Gleń",
   "main": "dist/index.js",

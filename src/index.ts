@@ -11,10 +11,9 @@ export class GalAnonim {
    * @param url URL to the server.
    */
   constructor(url: string) {
-    let baseURL = url;
-
     this.api = axios.create({
-      baseURL,
+      baseURL: url,
+      withCredentials: false,
       validateStatus: () => true // requests will never throw an error
     });
   }
@@ -33,5 +32,31 @@ export class GalAnonim {
     });
 
     return status;
+  }
+
+  /**
+   * Logs the user in with given credentials.
+   * @param username
+   * @param password
+   * @returns Status code - 200 if successfully logged in, 4xx/5xx if something failed
+   */
+  public async login(username: string, password: string): Promise<number> {
+    const { status } = await this.api.post('/users/login', {
+      username,
+      password
+    });
+
+    if (status >= 200 && status < 400) {
+      this.api.defaults.withCredentials = true;
+    }
+
+    return status;
+  }
+
+  /**
+   * Returns true if the user is logged in
+   */
+  public get loggedIn(): boolean {
+    return this.api.defaults.withCredentials ?? false;
   }
 }

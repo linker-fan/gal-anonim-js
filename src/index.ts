@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from 'axios';
+import ApiClient, { RequestMethod } from './api/client';
 import { JwtPayload, LoginResult } from './interfaces/user';
 
 // TODO: make this more DRY
@@ -7,18 +7,14 @@ import { JwtPayload, LoginResult } from './interfaces/user';
  * The main wrapper class.
  */
 export class GalAnonim {
-  private api: AxiosInstance;
+  private api: ApiClient;
 
   /**
    * Creates a new wrapper instance.
    * @param url URL to the server.
    */
   constructor(url: string) {
-    this.api = axios.create({
-      baseURL: url,
-      withCredentials: false,
-      validateStatus: () => true // requests will never throw an error
-    });
+    this.api = new ApiClient(url);
   }
 
   /**
@@ -28,13 +24,13 @@ export class GalAnonim {
    * @returns Status code - 201 if successfully created, 4xx/5xx if something failed
    */
   public async register(username: string, password: string): Promise<number> {
-    const { status } = await this.api.post('/users/register', {
+    const data = await this.api.request('/users/register', RequestMethod.POST, {
       username,
       password1: password,
       password2: password
     });
 
-    return status;
+    return data.status;
   }
 
   /**
@@ -44,14 +40,19 @@ export class GalAnonim {
    * @returns Status code - 200 if successfully logged in, 4xx/5xx if something failed
    */
   public async login(username: string, password: string): Promise<number> {
-    const { status, data } = await this.api.post<LoginResult>('/users/login', {
-      username,
-      password
-    });
+    const { status, json } = await this.api.request(
+      '/users/login',
+      RequestMethod.POST,
+      {
+        username,
+        password
+      }
+    );
+
+    const data = (await json()) as LoginResult;
 
     if (status >= 200 && status < 400) {
-      this.api.defaults.headers.Authorization = `Bearer ${data.token}`;
-      this.api.defaults.withCredentials = true;
+      this.api.jwt = data.token;
     }
 
     return status;
@@ -61,7 +62,7 @@ export class GalAnonim {
    * Returns true if there is a jwt in axios headers
    */
   public get loggedIn(): boolean {
-    return !!this.api.defaults.headers.Authorization;
+    return !!this.api.jwt;
   }
 
   /**
@@ -69,7 +70,9 @@ export class GalAnonim {
    * @returns Current user's JWT payload.
    */
   public async me(): Promise<JwtPayload> {
-    const { data } = await this.api.get<JwtPayload>('/protected/me');
+    const { json } = await this.api.request('/protected/me');
+
+    const data = (await json()) as JwtPayload;
 
     return data;
   }

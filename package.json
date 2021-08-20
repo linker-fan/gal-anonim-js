@@ -3,7 +3,7 @@
   "version": "0.0.3",
   "repository": "https://github.com/linker-fan/gal-anonim-js.git",
   "author": "Bartosz Gleń",
-  "main": "dist/index.js",
+  "main": "dist/galAnonim.js",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.21.1"
@@ -17,7 +17,6 @@
     "webpack-cli": "^4.8.0"
   },
   "scripts": {
-    "build": "tsc",
-    "build:watch": "tsc -w"
+    "build": "webpack --mode production"
   }
 }

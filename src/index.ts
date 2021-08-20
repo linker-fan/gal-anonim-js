@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
-import { JwtPayload, LoginResult } from './interfaces';
+import { JwtPayload, LoginResult } from './interfaces/user';
 
 // TODO: make this more DRY
 

@@ -13,20 +13,17 @@ class ApiClient {
 
   constructor(private baseUrl: string) {}
 
-  async request<T>(
-    url: string,
-    method?: RequestMethod,
-    body?: BodyInit
-  ): Promise<T> {
-    let init: RequestInit = { body, method };
+  async request(url: string, method?: RequestMethod, body?: any) {
+    let init: RequestInit = {
+      body: JSON.stringify(body),
+      method
+    };
 
     if (this._jwt) {
       init.headers = { Authorization: this._jwt };
     }
 
-    const res = await fetch(`${this.baseUrl}${url}`, init);
-
-    return res.json();
+    return await fetch(`${this.baseUrl}${url}`, init);
   }
 
   set jwt(v: string) {

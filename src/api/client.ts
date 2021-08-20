@@ -9,7 +9,7 @@ export enum RequestMethod {
 }
 
 class ApiClient {
-  private jwt?: string;
+  private _jwt?: string;
 
   constructor(private baseUrl: string) {}
 
@@ -20,13 +20,17 @@ class ApiClient {
   ): Promise<T> {
     let init: RequestInit = { body, method };
 
-    if (this.jwt) {
-      init.headers = { Authorization: this.jwt };
+    if (this._jwt) {
+      init.headers = { Authorization: this._jwt };
     }
 
     const res = await fetch(`${this.baseUrl}${url}`, init);
 
     return res.json();
+  }
+
+  set jwt(v: string) {
+    this._jwt = v;
   }
 }
 

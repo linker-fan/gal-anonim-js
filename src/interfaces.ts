@@ -3,3 +3,7 @@ export interface JwtPayload {
   username: string;
   isAdmin: boolean;
 }
+
+export interface LoginResult {
+  token: string;
+}

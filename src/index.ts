@@ -69,10 +69,6 @@ export class GalAnonim {
    * @returns Current user's JWT payload.
    */
   public async me(): Promise<JwtPayload> {
-    if (!this.loggedIn) {
-      throw new Error('Unauthorized');
-    }
-
     const { data } = await this.api.get<JwtPayload>('/protected/me');
 
     return data;

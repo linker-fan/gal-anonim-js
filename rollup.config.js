@@ -1,4 +1,5 @@
 import typescript from '@rollup/plugin-typescript';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 export default {
   input: './src/index.ts',
@@ -7,8 +8,8 @@ export default {
     format: 'umd',
     name: 'GalAnonim',
     globals: {
-      'node-fetch': 'fetch'
+      GalAnonim: 'GalAnonim'
     }
   },
-  plugins: [typescript()]
+  plugins: [typescript(), nodeResolve({ browser: true })]
 };

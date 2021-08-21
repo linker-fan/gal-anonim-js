@@ -9,6 +9,7 @@
     "isomorphic-fetch": "^3.0.0"
   },
   "devDependencies": {
+    "@rollup/plugin-node-resolve": "^13.0.4",
     "@rollup/plugin-typescript": "^8.2.5",
     "@types/isomorphic-fetch": "^0.0.35",
     "@types/node": "^16.6.1",

@@ -5,13 +5,10 @@
   "author": "Bartosz Gleń",
   "main": "dist/galAnonim.js",
   "license": "MIT",
-  "dependencies": {
-    "node-fetch": "^2.6.1"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@rollup/plugin-typescript": "^8.2.5",
     "@types/node": "^16.6.1",
-    "@types/node-fetch": "^2.5.12",
     "prettier": "^2.3.2",
     "rollup": "^2.56.2",
     "tslib": "^2.3.1",

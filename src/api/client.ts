@@ -1,4 +1,4 @@
-import fetch, { BodyInit, RequestInit } from 'node-fetch';
+import 'isomorphic-fetch';
 
 export enum RequestMethod {
   GET = 'GET',
@@ -14,7 +14,7 @@ class ApiClient {
   constructor(private baseUrl: string) {}
 
   async request(url: string, method?: RequestMethod, body?: any) {
-    let init: RequestInit = {
+    let init: any = {
       body: JSON.stringify(body),
       method
     };

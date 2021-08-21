@@ -5,9 +5,12 @@
   "author": "Bartosz Gleń",
   "main": "dist/galAnonim.js",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "isomorphic-fetch": "^3.0.0"
+  },
   "devDependencies": {
     "@rollup/plugin-typescript": "^8.2.5",
+    "@types/isomorphic-fetch": "^0.0.35",
     "@types/node": "^16.6.1",
     "prettier": "^2.3.2",
     "rollup": "^2.56.2",
